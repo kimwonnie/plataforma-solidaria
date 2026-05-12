@@ -9,9 +9,9 @@ function showSection(sectionId) {
 // Cadastro
 document.getElementById("formCadastro")?.addEventListener("submit", e => {
   e.preventDefault();
-  const tipo = e.target.querySelector("select").value;
-  const nome = e.target.querySelector("input[type=text]").value;
-  const email = e.target.querySelector("input[type=email]").value;
+  const tipo = e.target.querySelector("select[name='tipo']").value;
+  const nome = e.target.querySelector("input[name='nome']").value;
+  const email = e.target.querySelector("input[name='email']").value;
 
   if (tipo === "familia") {
     alert("Somente ONGs e Administradores podem cadastrar famílias.");
@@ -41,11 +41,10 @@ async function registerForm(formId, listId, campos, endpoint) {
     campos.forEach(campo => {
       const el = form.querySelector(campo);
       if (el) {
-        data[el.placeholder?.toLowerCase().replace(/\s+/g, '') || 'campo'] = el.value;
+        data[el.name] = el.value;
       }
     });
 
-    // Envia para o backend Render
     try {
       const res = await fetch(`${API_URL}/${endpoint}`, {
         method: "POST",
@@ -54,7 +53,7 @@ async function registerForm(formId, listId, campos, endpoint) {
       });
       const novoRegistro = await res.json();
 
-       // Feedback ao usuário
+      // Feedback ao usuário
       alert(`${endpoint.charAt(0).toUpperCase() + endpoint.slice(1)} registrado com sucesso!`);
 
       // Atualiza lista no frontend
@@ -71,30 +70,30 @@ async function registerForm(formId, listId, campos, endpoint) {
 
 // Doações
 registerForm("formDoacao", "listaDoacoes", [
-  "input[placeholder='Nome do Doador']",
-  "input[placeholder='Alimento']",
-  "input[placeholder='Quantidade']",
-  "input[placeholder='Validade']",
-  "input[placeholder='Localização']"
+  "input[name='nomeDoador']",
+  "input[name='alimento']",
+  "input[name='quantidade']",
+  "input[name='validade']",
+  "input[name='localizacao']"
 ], "doacoes");
 
 // Instituições
 registerForm("formInstituicao", "listaInstituicoes", [
-  "input[placeholder='Nome da Instituição']",
-  "input[placeholder='Endereço']"
+  "input[name='nomeInstituicao']",
+  "input[name='endereco']"
 ], "instituicoes");
 
 // Entregas
 registerForm("formEntrega", "listaEntregas", [
-  "input[placeholder='Voluntário Responsável']",
-  "input[placeholder='Família Destino']",
-  "input[placeholder='Alimento Entregue']"
+  "input[name='voluntario']",
+  "input[name='familiaDestino']",
+  "input[name='alimentoEntregue']"
 ], "entregas");
 
 // Avaliações
 registerForm("formAvaliacao", "listaAvaliacoes", [
-  "input[placeholder='Instituição']",
-  "textarea"
+  "input[name='instituicao']",
+  "textarea[name='feedback']"
 ], "avaliacoes");
 
 // Famílias - restrição
@@ -105,9 +104,9 @@ document.getElementById("formFamilia")?.addEventListener("submit", async e => {
     return;
   }
   const data = {
-    nome: e.target.querySelector("input[placeholder='Nome da Família']").value,
-    endereco: e.target.querySelector("input[placeholder='Endereço']").value,
-    membros: e.target.querySelector("input[placeholder='Número de Membros']").value
+    nomeFamilia: e.target.querySelector("input[name='nomeFamilia']").value,
+    endereco: e.target.querySelector("input[name='endereco']").value,
+    membros: e.target.querySelector("input[name='membros']").value
   };
 
   try {
@@ -122,7 +121,7 @@ document.getElementById("formFamilia")?.addEventListener("submit", async e => {
     alert("Família cadastrada com sucesso!");
 
     const li = document.createElement("li");
-    li.textContent = `${novaFamilia.nome} | ${novaFamilia.endereco} | ${novaFamilia.membros}`;
+    li.textContent = `${novaFamilia.nomeFamilia} | ${novaFamilia.endereco} | ${novaFamilia.membros}`;
     document.getElementById("listaFamilias").appendChild(li);
     e.target.reset();
   } catch (err) {
