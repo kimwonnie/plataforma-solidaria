@@ -54,6 +54,9 @@ async function registerForm(formId, listId, campos, endpoint) {
       });
       const novoRegistro = await res.json();
 
+       // Feedback ao usuário
+      alert(`${endpoint.charAt(0).toUpperCase() + endpoint.slice(1)} registrado com sucesso!`);
+
       // Atualiza lista no frontend
       const li = document.createElement("li");
       li.textContent = Object.values(novoRegistro).join(" | ");
@@ -114,6 +117,10 @@ document.getElementById("formFamilia")?.addEventListener("submit", async e => {
       body: JSON.stringify(data)
     });
     const novaFamilia = await res.json();
+
+    // Feedback ao usuário
+    alert("Família cadastrada com sucesso!");
+
     const li = document.createElement("li");
     li.textContent = `${novaFamilia.nome} | ${novaFamilia.endereco} | ${novaFamilia.membros}`;
     document.getElementById("listaFamilias").appendChild(li);
