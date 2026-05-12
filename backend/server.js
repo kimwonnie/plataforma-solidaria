@@ -15,6 +15,11 @@ mongoose.connect(process.env.MONGO_URI, {
 .then(() => console.log("✅ Conectado ao MongoDB Atlas"))
 .catch(err => console.error("❌ Erro de conexão:", err));
 
+// Rota raiz opcional
+app.get('/', (req, res) => {
+  res.send('API Plataforma Solidária está rodando 🚀');
+});
+
 // Rotas
 app.use('/doacoes', require('./routes/doacoes'));
 app.use('/instituicoes', require('./routes/instituicoes'));
