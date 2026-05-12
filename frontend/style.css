@@ -1,0 +1,91 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: linear-gradient(135deg, #6a0dad, #808080);
+  color: #fff;
+}
+
+header {
+  background: rgba(0,0,0,0.4);
+  padding: 1rem;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+}
+
+nav button {
+  margin: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: #fff;
+  color: #6a0dad;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+nav button:hover {
+  background: #ddd;
+}
+
+section {
+  display: none;
+  padding: 1rem;
+}
+
+section.active {
+  display: block;
+}
+
+h2 {
+  border-bottom: 2px solid #fff;
+  padding-bottom: 0.5rem;
+}
+
+form {
+  margin-bottom: 1rem;
+}
+
+form input, form select, form textarea, form button {
+  display: block;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  width: 100%;
+  border-radius: 5px;
+  border: none;
+}
+
+form input, form select, form textarea {
+  background: rgba(255,255,255,0.9);
+  color: #333;
+}
+
+form button {
+  background: #6a0dad;
+  color: white;
+  cursor: pointer;
+}
+
+form button:hover {
+  background: #4b0082;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  background: rgba(255,255,255,0.1);
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+canvas {
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 1rem;
+}

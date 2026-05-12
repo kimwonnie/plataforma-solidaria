@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Plataforma Solidária</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🌍 Plataforma Solidária</h1>
+    <nav>
+      <button onclick="showSection('login')">Login</button>
+      <button onclick="showSection('cadastro')">Cadastro</button>
+      <button onclick="showSection('dashboard')">Dashboard</button>
+      <button onclick="showSection('doacoes')">Doações</button>
+      <button onclick="showSection('instituicoes')">Instituições</button>
+      <button onclick="showSection('familias')">Famílias</button>
+      <button onclick="showSection('entregas')">Entregas</button>
+      <button onclick="showSection('avaliacoes')">Avaliações</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Login -->
+    <section id="login" class="active">
+      <h2>Login</h2>
+      <form id="formLogin">
+        <input type="email" placeholder="Email" required>
+        <input type="password" placeholder="Senha" required>
+        <button type="submit">Entrar</button>
+      </form>
+    </section>
+
+    <!-- Cadastro -->
+    <section id="cadastro">
+      <h2>Cadastro</h2>
+      <form id="formCadastro">
+        <input type="text" placeholder="Nome" required>
+        <input type="email" placeholder="Email" required>
+        <input type="password" placeholder="Senha" required>
+        <select required>
+          <option value="">Selecione o tipo</option>
+          <option value="doador">Doador</option>
+          <option value="ong">ONG</option>
+          <option value="familia">Família</option>
+          <option value="admin">Administrador</option>
+        </select>
+        <button type="submit">Cadastrar</button>
+      </form>
+    </section>
+
+    <!-- Dashboard -->
+    <section id="dashboard">
+      <h2>Painel Administrativo</h2>
+      <canvas id="graficoDoacoes"></canvas>
+    </section>
+
+    <!-- Doações -->
+    <section id="doacoes">
+      <h2>Registrar Doação</h2>
+      <form id="formDoacao">
+        <input type="text" placeholder="Nome do Doador" required>
+        <input type="text" placeholder="Alimento" required>
+        <input type="number" placeholder="Quantidade" required>
+        <input type="date" placeholder="Validade" required>
+        <input type="text" placeholder="Localização" required>
+        <button type="submit">Cadastrar</button>
+      </form>
+      <ul id="listaDoacoes"></ul>
+    </section>
+
+    <!-- Instituições -->
+    <section id="instituicoes">
+      <h2>Cadastrar Instituição</h2>
+      <form id="formInstituicao">
+        <input type="text" placeholder="Nome da Instituição" required>
+        <input type="text" placeholder="Endereço" required>
+        <button type="submit">Cadastrar</button>
+      </form>
+      <ul id="listaInstituicoes"></ul>
+    </section>
+
+    <!-- Famílias -->
+    <section id="familias">
+      <h2>Cadastrar Família</h2>
+      <form id="formFamilia">
+        <input type="text" placeholder="Nome da Família" required>
+        <input type="text" placeholder="Endereço" required>
+        <input type="number" placeholder="Número de Membros" required>
+        <button type="submit">Cadastrar</button>
+      </form>
+      <ul id="listaFamilias"></ul>
+    </section>
+
+    <!-- Entregas -->
+    <section id="entregas">
+      <h2>Registrar Entrega</h2>
+      <form id="formEntrega">
+        <input type="text" placeholder="Voluntário Responsável" required>
+        <input type="text" placeholder="Família Destino" required>
+        <input type="text" placeholder="Alimento Entregue" required>
+        <button type="submit">Cadastrar</button>
+      </form>
+      <ul id="listaEntregas"></ul>
+    </section>
+
+    <!-- Avaliações -->
+    <section id="avaliacoes">
+      <h2>Avaliações e Feedbacks</h2>
+      <form id="formAvaliacao">
+        <input type="text" placeholder="Instituição" required>
+        <textarea placeholder="Feedback" required></textarea>
+        <button type="submit">Enviar</button>
+      </form>
+      <ul id="listaAvaliacoes"></ul>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
