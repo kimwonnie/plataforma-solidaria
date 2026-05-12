@@ -1,4 +1,5 @@
 let usuarioLogado = null;
+const API_URL = "https://plataforma-solidaria-6b8a.onrender.com";
 
 function showSection(sectionId) {
   document.querySelectorAll("main section").forEach(sec => sec.classList.remove("active"));
@@ -44,9 +45,9 @@ async function registerForm(formId, listId, campos, endpoint) {
       }
     });
 
-    // Envia para o backend
+    // Envia para o backend Render
     try {
-      const res = await fetch(`http://localhost:5000/${endpoint}`, {
+      const res = await fetch(`${API_URL}/${endpoint}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
@@ -107,7 +108,7 @@ document.getElementById("formFamilia")?.addEventListener("submit", async e => {
   };
 
   try {
-    const res = await fetch("http://localhost:5000/familias", {
+    const res = await fetch(`${API_URL}/familias`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
