@@ -1,16 +1,19 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+require('dotenv').config(); // para usar variáveis de ambiente
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
 // Conexão com MongoDB (local ou Atlas)
-mongoose.connect('mongodb://localhost:27017/plataformaSolidaria', {
+mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
-});
+})
+.then(() => console.log("✅ Conectado ao MongoDB Atlas"))
+.catch(err => console.error("❌ Erro de conexão:", err));
 
 // Rotas
 app.use('/doacoes', require('./routes/doacoes'));
