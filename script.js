@@ -41,7 +41,9 @@ async function registerForm(formId, listId, campos, endpoint) {
     campos.forEach(campo => {
       const el = form.querySelector(campo);
       if (el) {
-        data[el.name] = el.value;
+        
+       // converter números quando necessário
+        data[el.name] = el.type === "number" ? parseInt(el.value) : el.value;
       }
     });
 
@@ -51,17 +53,26 @@ async function registerForm(formId, listId, campos, endpoint) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
       });
-      const novoRegistro = await res.json();
 
-      // Feedback ao usuário
+      if (!res.ok) {
+        const erro = await res.json();
+        alert("Erro ao salvar: " + erro.error);
+        return;
+      }
+
+      const novoRegistro = await res.json();
       alert(`${endpoint.charAt(0).toUpperCase() + endpoint.slice(1)} registrado com sucesso!`);
 
       // Atualiza lista no frontend
       const li = document.createElement("li");
-      li.textContent = Object.values(novoRegistro).join(" | ");
+      li.textContent = Object.entries(novoRegistro)
+        .filter(([key]) => !["_id", "__v", "dataRegistro"].includes(key))
+        .map(([_, value]) => value)
+        .join(" | ");
       list.appendChild(li);
+
       form.reset();
-      atualizarGrafico();
+      if (endpoint === "doacoes") atualizarGrafico();
     } catch (err) {
       alert("Erro ao salvar no servidor: " + err.message);
     }
@@ -71,18 +82,20 @@ async function registerForm(formId, listId, campos, endpoint) {
 // Função para carregar dados já existentes
 async function carregarLista(listId, endpoint) {
   const list = document.getElementById(listId);
+  if (!list) return;
   list.innerHTML = "";
   try {
     const res = await fetch(`${API_URL}/${endpoint}`);
     const registros = await res.json();
     registros.forEach(reg => {
       const li = document.createElement("li");
-      li.textContent = Object.values(reg).join(" | ");
+      li.textContent = Object.entries(reg)
+        .filter(([key]) => !["_id", "__v", "dataRegistro"].includes(key))
+        .map(([_, value]) => value)
+        .join(" | ");
       list.appendChild(li);
     });
-    if (endpoint === "doacoes") {
-      atualizarGrafico();
-    }
+    if (endpoint === "doacoes") atualizarGrafico();
   } catch (err) {
     console.error("Erro ao carregar " + endpoint, err);
   }
@@ -135,9 +148,14 @@ document.getElementById("formFamilia")?.addEventListener("submit", async e => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     });
-    const novaFamilia = await res.json();
+    
+    if (!res.ok) {
+      const erro = await res.json();
+      alert("Erro ao salvar família: " + erro.error);
+      return;
+    }
 
-    // Feedback ao usuário
+    const novaFamilia = await res.json();
     alert("Família cadastrada com sucesso!");
 
     const li = document.createElement("li");
