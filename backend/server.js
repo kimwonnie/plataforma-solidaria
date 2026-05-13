@@ -5,8 +5,12 @@ require('dotenv').config(); // para usar variáveis de ambiente
 
 const app = express();
 app.use(express.json());
-app.use(cors());
 
+// Configuração de CORS — importante para GitHub Pages
+app.use(cors({
+  origin: "https://kimwonnie.github.io" // substitua pelo seu domínio do GitHub Pages
+}));
+ 
 // Conexão com MongoDB (local ou Atlas)
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
@@ -27,5 +31,6 @@ app.use('/familias', require('./routes/familias'));
 app.use('/entregas', require('./routes/entregas'));
 app.use('/avaliacoes', require('./routes/avaliacoes'));
 
-const PORT = 5000;
+// Porta dinâmica para Render
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
