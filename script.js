@@ -68,6 +68,26 @@ async function registerForm(formId, listId, campos, endpoint) {
   });
 }
 
+// Função para carregar dados já existentes
+async function carregarLista(listId, endpoint) {
+  const list = document.getElementById(listId);
+  list.innerHTML = "";
+  try {
+    const res = await fetch(`${API_URL}/${endpoint}`);
+    const registros = await res.json();
+    registros.forEach(reg => {
+      const li = document.createElement("li");
+      li.textContent = Object.values(reg).join(" | ");
+      list.appendChild(li);
+    });
+    if (endpoint === "doacoes") {
+      atualizarGrafico();
+    }
+  } catch (err) {
+    console.error("Erro ao carregar " + endpoint, err);
+  }
+}
+
 // Doações
 registerForm("formDoacao", "listaDoacoes", [
   "input[name='nomeDoador']",
@@ -157,3 +177,10 @@ function atualizarGrafico() {
   grafico.data.datasets[0].data = Object.values(dados);
   grafico.update();
 }
+
+// Carregar dados existentes ao abrir o site
+carregarLista("listaDoacoes", "doacoes");
+carregarLista("listaInstituicoes", "instituicoes");
+carregarLista("listaFamilias", "familias");
+carregarLista("listaEntregas", "entregas");
+carregarLista("listaAvaliacoes", "avaliacoes");
