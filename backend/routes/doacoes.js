@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Doacao = require('../models/Doacao');
 
+// POST - inserir nova doação
 router.post('/', async (req, res) => {
   try {
     const novaDoacao = new Doacao(req.body);
@@ -12,6 +13,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+// GET - listar todas as doações
 router.get('/', async (req, res) => {
   try {
     const doacoes = await Doacao.find();

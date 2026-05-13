@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Avaliacao = require('../models/Avaliacao');
 
+// POST - inserir nova avaliação
 router.post('/', async (req, res) => {
   try {
     const novaAvaliacao = new Avaliacao(req.body);
@@ -12,6 +13,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+// GET - listar todas as avaliações
 router.get('/', async (req, res) => {
   try {
     const avaliacoes = await Avaliacao.find();

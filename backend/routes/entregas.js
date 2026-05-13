@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Entrega = require('../models/Entrega');
 
+// POST - inserir nova entrega
 router.post('/', async (req, res) => {
   try {
     const novaEntrega = new Entrega(req.body);
@@ -12,6 +13,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+// GET - listar todas as entregas
 router.get('/', async (req, res) => {
   try {
     const entregas = await Entrega.find();

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Instituicao = require('../models/Instituicao');
 
+// POST - inserir nova instituição
 router.post('/', async (req, res) => {
   try {
     const novaInstituicao = new Instituicao(req.body);
@@ -12,6 +13,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+// GET - listar todas as instituições
 router.get('/', async (req, res) => {
   try {
     const instituicoes = await Instituicao.find();

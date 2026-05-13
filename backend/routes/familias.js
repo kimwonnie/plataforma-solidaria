@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Familia = require('../models/Familia');
 
+// POST - inserir nova família
 router.post('/', async (req, res) => {
   try {
     const novaFamilia = new Familia(req.body);
@@ -12,6 +13,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+// GET - listar todas as famílias
 router.get('/', async (req, res) => {
   try {
     const familias = await Familia.find();

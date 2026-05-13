@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const InstituicaoSchema = new mongoose.Schema({
-  nome: String,
-  endereco: String,
+  nomeInstituicao: { type: String, required: true },
+  endereco: { type: String, required: true },
   dataRegistro: { type: Date, default: Date.now }
 });
 

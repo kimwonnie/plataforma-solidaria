@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const FamiliaSchema = new mongoose.Schema({
-  nome: String,
-  endereco: String,
-  membros: Number,
+  nomeFamilia: { type: String, required: true },
+  endereco: { type: String, required: true },
+  membros: { type: Number, required: true },
   dataRegistro: { type: Date, default: Date.now }
 });
 
